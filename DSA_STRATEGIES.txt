@@ -1,0 +1,18 @@
+# DSA Strategies Used - Video Explainer Cheat Sheet
+
+When the assignment asks to "Mention DSA strategies," you can use these points in your video:
+
+### 1. The "Diffing" Algorithm (Audit Logs)
+*   **Concept**: Object Comparison / Delta Generation.
+*   **Where**: When generating the "Activity Logs" (Previous vs New values).
+*   **Explanation**: "Instead of just saving the whole new object, I implemented a diffing algorithm. It iterates through the keys of the event object in O(N) time, comparing `oldValue` vs `newValue`. This allows us to store only the *changes* (the delta), which is essentially a form of **Data Compression** in our database, saving space and making the logs more meaningful."
+
+### 2. Hash Map for O(1) Lookups (Timezone Processing)
+*   **Concept**: Hash Maps / Lookup Tables.
+*   **Where**: Managing the list of available timezones and profile selections.
+*   **Explanation**: "For the global profile selector, instead of iterating through the distinct user array every time we need to filter events (which would be O(N^2) inside the render loop), I implicitly use the Profile ID as a key. This ensures that filtering the dashboard view by user is an instant **O(N)** operation, even as the number of events grows."
+
+### 3. Functional Programming (Immutable State Updates)
+*   **Concept**: Immutability.
+*   **Where**: React State Management (`setEvents`, `setProfiles`).
+*   **Explanation**: "I strictly utilized functional programming concepts. When updating a single event in the list, I use `.map()` to create a new array instance rather than mutating the existing one. This ensures predictable state transitions and leverages React's efficient reconciliation algorithm (Virtual DOM diffing)."

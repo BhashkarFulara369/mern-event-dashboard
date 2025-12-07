@@ -1,0 +1,43 @@
+Event Management System - Developer Project Report
+
+1. Introduction & Vision
+For this assignment, I developed a comprehensive "God Mode" Event Management Dashboard. The goal was to move beyond a simple CRUD application and build a robust tool that handles one of the most complex aspects of efficient scheduling: coordination across multiple timezones.
+
+The application allows an admin to manage users, assign events, and tracking updates in real-time, ensuring that a user in Tokyo and a user in New York see the exact same event relative to their local time.
+
+2. Core Architecture & Tech Stack
+I chose the MERN stack (MongoDB, Express, React, Node.js) for its flexibility and performance.
+- Database: MongoDB (Atlas) was used for its schema-less nature, allowing us to store complex event objects and nested arrays for assigned profiles.
+- Backend: A streamlined Express.js API handles all logic, including a specialized "Profile" and "Event" controller.
+- Frontend: React (Vite) provides a snappy, single-page experience. I deliberately avoided CSS frameworks like Bootstrap or Tailwind, opting for "Vanilla CSS" with a custom Design System (variables for colors, spacing, etc.) to demonstrate strong fundamental CSS skills.
+
+3. Key Features Implementation
+
+A. The "Timezone" Challenge
+The most critical requirement was ensuring that an event created in EST appears correctly for a user in IST.
+- Solution: I utilized `dayjs` with the `timezone` and `utc` plugins. All events are stored in the database as UTC ISO strings. On the frontend, we dynamically convert these strings to the user's selected "View Timezone" in real-time. This means if you change the dropdown from "New York" to "London," every event on the screen instantly shifts to the correct local time without a page reload.
+
+B. Profile Management (The "God Mode" UI)
+Instead of a separate, clunky "Manage Users" page, I integrated profile management directly into the workflow.
+- Implementation: The "Assigned To" dropdown in the event form is a custom-built multi-select component. It includes an integrated search bar and a seamless "+ Add New Profile" feature. This allows the admin to create a new user on the fly while creating an event, significantly reducing friction.
+
+C. Search and Filtering
+To manage clutter, I added a global "Context Switcher" in the top header. This allows the admin to view the dashboard as if they were a specific user (e.g., "Show me only User 1's events"), or view everything at once.
+
+4. Bonus Features & "Extra Credit"
+
+I wanted to push the application further than the basic requirements, so I implemented a sophisticated "Audit Log" system.
+
+A. Detailed Event History
+Standard apps just tell you "Event Updated." I built a diffing engine on the backend that compares the old event state vs. the new state.
+- Result: The log displays human-readable sentences like "Start Time changed from 9:00 AM to 10:00 AM" or "Title changed from 'Meeting' to 'Strategy Call'."
+
+B. Timezone-Aware Logs
+Crucially, these logs are not static. If an event was updated at 5:00 PM EST, and you switch your view to London time, the log timestamp also updates to display when that change happened in London time. This ensures absolute clarity in cross-team communication.
+
+5. User Experience (UX) Polish
+- No Browser Popups: I replaced all native `alert()` and `prompt()` calls with custom-designed Toast Notifications (for success/error messages) and inline input fields.
+- Brand Consistency: The application features a consistent "Purple & Slate" color theme (`#7c3aed`) with a modern, glass-like aesthetic for dropdowns and cards.
+
+6. Conclusion
+This project represents a production-ready approach to event management. It handles the "happy path" of creating events, but also handles the edge cases of timezone math, detailed auditing, and user management with a level of polish that users expect from modern SaaS applications.
