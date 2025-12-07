@@ -75,21 +75,21 @@ const Dashboard = () => {
 
     const fetchProfiles = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/profiles');
+            const res = await axios.get('https://event-api-oaw9.onrender.com/api/profiles');
             setProfiles(res.data);
         } catch (err) { console.error(err); }
     };
 
     const fetchEvents = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/events');
+            const res = await axios.get('https://event-api-oaw9.onrender.com/api/events');
             setEvents(res.data);
         } catch (err) { console.error(err); }
     };
 
     const fetchLogs = async (eventId) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/events/${eventId}/logs`);
+            const res = await axios.get(`https://event-api-oaw9.onrender.com/api/events/${eventId}/logs`);
             setLogs(res.data);
         } catch (err) { console.error(err); }
     };
@@ -97,7 +97,7 @@ const Dashboard = () => {
     const handleCreateProfile = async (name, isGlobal = false) => {
         if (!name.trim()) return;
         try {
-            const res = await axios.post('http://localhost:5000/api/profiles', { name: name, timezone: 'UTC' });
+            const res = await axios.post('https://event-api-oaw9.onrender.com/api/profiles', { name: name, timezone: 'UTC' });
             await fetchProfiles(); // Refresh list to include new profile
 
             // Handle State cleanup
@@ -175,11 +175,11 @@ const Dashboard = () => {
             };
 
             if (editingEventId) {
-                await axios.put(`http://localhost:5000/api/events/${editingEventId}`, payload);
+                await axios.put(`https://event-api-oaw9.onrender.com/api/events/${editingEventId}`, payload);
                 setNotification({ message: 'Event Updated Successfully!', type: 'success' });
                 setEditingEventId(null);
             } else {
-                await axios.post('http://localhost:5000/api/events', payload);
+                await axios.post('https://event-api-oaw9.onrender.com/api/events', payload);
                 setNotification({ message: 'Event Created Successfully!', type: 'success' });
             }
 
